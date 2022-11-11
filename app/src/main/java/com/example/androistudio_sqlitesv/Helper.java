@@ -8,14 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Helper extends SQLiteOpenHelper {
     public Helper(Context context) {
-        super(context , "ManagerComputer.db",null , 1);
+        super(context , "sinhvien.db",null , 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table category(categoryId text primary key ,nameCategory text)");
-        sqLiteDatabase.execSQL("create table computer(idComputer text primary key , nameComputer text ,price text ," +
-                " categoryId text constraint categoryId references category(categoryId))");
+        sqLiteDatabase.execSQL("create table khoa(maKhoa text primary key ,tenKhoa text)");
+        sqLiteDatabase.execSQL("create table sinhvien(maSV text primary key , tenSV text ,lop text ," +
+                " maKhoa text constraint maKhoa references khoa(maKhoa))");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Helper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("maSV" , maSV);
         contentValues.put("tenSV" , tenSV);
-        contentValues.put("LopHP" , lop);
+        contentValues.put("lop" , lop);
         contentValues.put("maKhoa" , maKhoa);
         long result = db.insert("sinhvien" ,null ,contentValues);
         if(result == - 1){
